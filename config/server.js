@@ -2,6 +2,8 @@
 var app = require('express')();
 var consign = require('consign')
 var bodyParser = require('body-parser')
+var expressValidator = require('express-validator')()
+
 //setar o engine of view
 app.set('view engine','ejs')
 //setar o diretorio das views
@@ -9,7 +11,7 @@ app.set('views','./app/views')
 
 //permitir codificação url
 app.use(bodyParser.urlencoded({extended: true}));
-
+app.use(expressValidator)
 
 //autoload dos arquivos de rotas e conexao
 consign()
