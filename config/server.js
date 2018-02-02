@@ -12,12 +12,13 @@ app.set('views','./app/views');
 //permitir codificação url
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(expressValidator);
-app.use(express.static('./app/public'));
+ 
+//app.use(express.static('./app/public'));
 
 //autoload dos arquivos de rotas e conexao
 consign()
      .include('app/routes')
-     .then('config/mysql.js')
+     .then('config/mongodb.js')
      .then('app/models')
      .then('app/controllers')
      .into(app)
