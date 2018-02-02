@@ -1,7 +1,7 @@
 var objectId = require('mongodb').ObjectId;
 
 function Users(connection){
-   this._connection = connection;
+     this._connection = connection;
 }
 
 Users.prototype.getUsers = function(callback){

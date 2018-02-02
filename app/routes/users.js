@@ -2,6 +2,9 @@
 
  module.exports = function(application){
 
+    /**
+     * Homepage
+     */
     application.get('/',function(req,res){
         application.app.controllers.users.index(application,req,res)
     });
@@ -21,12 +24,15 @@
     });
     
     /**
-     * Listar usuarios
+     * Listar usuarios por ID
     */
     application.get('/user/:id',function(req,res){
         application.app.controllers.users.showById(application,req,res)
     });
 
+    /**
+     * Listar todos os usuarios
+     */
     application.get('/listar',function(req,res){
         application.app.controllers.users.show(application,req,res)
     });
