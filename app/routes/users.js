@@ -10,6 +10,21 @@
     });
    
     /**
+     * authenticate login
+     */
+    application.post('/auth',function(req,res){
+        application.app.controllers.auth.authenticate(application,req,res)
+    });
+
+    /**
+     * authenticate logout
+     */
+    application.post('/logout',function(req,res){
+        application.app.controllers.auth.authDestroy(application,req,res)
+    });
+
+
+    /**
      * Cadastrar novos usuarios
     */
     application.post('/cadastrar',function(req,res){
@@ -19,7 +34,7 @@
     /**
      * Editar usuarios
     */
-    application.put('/user/edit/:id',function(req,res){
+    application.put('/user/:id',function(req,res){
        return application.app.controllers.users.edit(application,req,res)
     });
     
@@ -40,7 +55,7 @@
     /**
      * deletar usuario
     */
-    application.delete('/user/delete/:id',function(req,res){
+    application.delete('/user/:id',function(req,res){
         application.app.controllers.users.deleteById(application,req,res)
     });
   
