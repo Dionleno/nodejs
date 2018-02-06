@@ -1,12 +1,16 @@
 
 var objectId = require('mongodb').ObjectId;
+var crypto = require('crypto');
 
 function Auth(app){
     this._connection = app.config.mongodb();
 
 }
 
-Custos.prototype.authenticate = function(user,callback){
+Auth.prototype.authenticate = function(user,callback){
+
+    var password = crypto.createHash("md5").update(user.password).digest("hex");
+    user.password = password;
 
     this._connection.open(function(error, clientMongoDb){
 
@@ -20,5 +24,5 @@ Custos.prototype.authenticate = function(user,callback){
 
 
 module.exports = function(app){
-    return new Custos(app);
+    return new Auth(app);
 }

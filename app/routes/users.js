@@ -34,14 +34,14 @@
     /**
      * Editar usuarios
     */
-    application.put('/user/:id',function(req,res){
+    application.put('/user',function(req,res){
        return application.app.controllers.users.edit(application,req,res)
     });
     
     /**
      * Listar usuarios por ID
     */
-    application.get('/user/:id',function(req,res){
+    application.get('/user',function(req,res){
         application.app.controllers.users.showById(application,req,res)
     });
 

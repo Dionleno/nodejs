@@ -5,21 +5,24 @@
     /**
      * Cadastrar novos categorias
     */
-    application.post('/categoria/:id',function(req,res){
+    application.post('/categoria',function(req,res){
+        if(!req.session.auth) res.status(401).json({error: {message: "unauthenticated"}});
         application.app.controllers.custos.storeCategoria(application,req,res)
     });
     
     /**
      * Cadastrar novos usuarios
     */
-    application.post('/custo/:id',function(req,res){
+    application.post('/custo',function(req,res){
+        if(!req.session.auth) res.status(401).json({error: {message: "unauthenticated"}});
         application.app.controllers.custos.store(application,req,res)
     });
 
     /**
      * Listar categorias do usuario
      */
-    application.get('/categoria/:id',function(req,res){
+    application.get('/categoria',function(req,res){
+        if(!req.session.auth) res.status(401).json({error: {message: "unauthenticated"}});
         application.app.controllers.custos.getCategoria(application,req,res)
     });
  }

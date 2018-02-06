@@ -18,8 +18,11 @@ app.use(expressValidator);
 
 app.use(expressSession({
     secret:'xpto', //chave de segurança
-    resave: false, //regravada no servidor
-    saveUninitialized: false //sera regravada se for modificada
+    resave: true, //regravada no servidor
+    saveUninitialized: false , //sera regravada se for modificada,
+    cookie: {
+        secure: false,
+       }
 }));
 
 app.use(express.static('./app/public'));

@@ -21,7 +21,7 @@ module.exports.store = function(application, req,res){
         }
  
         var model = application.app.models.custos;
-        var user_id = req.params.id;
+        var user_id = req.session.user._id;
         
         /**
          * @findByID => buscar informações sobre a categoria por ID
@@ -50,9 +50,10 @@ module.exports.storeCategoria = function(application, req,res){
         if(error){
             return res.status(400).json(error);
         }
-
+        
+        
         var model = application.app.models.custos; 
-        var user_id = req.params.id;
+        var user_id = req.session.user._id;
 
         model.createCategoria(user_id,request,function(error, result){
             return res.status(200).json(result);
@@ -63,7 +64,7 @@ module.exports.storeCategoria = function(application, req,res){
 module.exports.getCategoria = function(application, req,res){
 
         //pegando os dados do formulario
-        var user_id = req.params.id;
+        var user_id = req.session.user._id;
         var model = application.app.models.custos; 
 
         model.listCategorias(user_id,function(error, result){

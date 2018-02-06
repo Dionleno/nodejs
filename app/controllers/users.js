@@ -16,7 +16,7 @@
             //validar formulario
             req.assert('name','Campo nome é obrigatório!').notEmpty();
             req.assert('email','Campo Email é obrigatório!').notEmpty().isEmail();
-            
+            req.assert('password','Campo senha é obrigatório!').notEmpty().isLength({ min: 5 });
 
             var error = req.validationErrors();
 
@@ -46,7 +46,7 @@
     module.exports.showById = function(application, req,res){
             var conn = application.config.mongodb();
             var modelUser = new application.app.models.users(conn);
-            var id = req.params.id;
+            var id = req.session.user._id;
             console.log(id);
             
             modelUser.getUserID(id,function(error, result){
@@ -79,8 +79,9 @@
 
         if(error) return  res.json(error);
 
-        var user_id = req.params.id;
-
+        var user_id = req.session.user._id;
+       console.log(user_id);
+       
         var conn = application.config.mongodb();
         var modelUser = new application.app.models.users(conn);
         

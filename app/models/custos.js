@@ -18,6 +18,8 @@ Custos.prototype.createCategoria = function(id,data,callback){
                     data: new Date()
                 }
             },callback)
+
+            clientMongoDb.close();
          })
     })
 }
@@ -85,6 +87,8 @@ Custos.prototype.saveCusto = function(id,data,categoria,callback){
                         { custos:{ $elemMatch: {categoria_id: {$eq: objectId(data.categoria_id)}}}}, //condição
                         {$set : {
                                     'custos.$':{
+                                        categoria_id: objectId(data.categoria_id),
+                                        categoria_name: categoria[0].name,
                                         valor: parseInt(valorAtual) + parseInt(data.valor)
                                     }
                             }
@@ -92,6 +96,8 @@ Custos.prototype.saveCusto = function(id,data,categoria,callback){
                         {},
                         callback
                     );
+
+
                 }else{
                     collection.update(
                         {_id : objectId(id)}, //condição
@@ -108,9 +114,9 @@ Custos.prototype.saveCusto = function(id,data,categoria,callback){
                     );
                 }
                
-          
+                clientMongoDb.close();
         });
-       
+      
         
          
      })   

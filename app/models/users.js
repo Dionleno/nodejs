@@ -1,4 +1,5 @@
 var objectId = require('mongodb').ObjectId;
+var crypto = require('crypto');
 
 function Users(connection){
      this._connection = connection;
@@ -28,7 +29,9 @@ Users.prototype.getUserID = function(id,callback){
 }
 
 Users.prototype.saveUser = function(data,callback){
-
+    var password = crypto.createHash("md5").update(data.password).digest("hex");
+    data.password = password;
+    
     this._connection.open(function(error, clientMongoDb){
 
         clientMongoDb.collection('users',function(error,collection){
