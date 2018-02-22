@@ -1,4 +1,9 @@
-/**
+    const bcrypt = require('bcrypt');
+    const jwt = require('jsonwebtoken');
+    const env = require('../../config/.env')
+
+
+     /**
      * @Save user
      * @param {*} application 
      * @param {*} req 
@@ -27,8 +32,14 @@
             if(result[0] != undefined){
                 req.session.auth = true;
                 req.session.user = result[0];
+
+                const token = jwt.sign(result[0], env.authSecret,{
+                    expiresIn: "1 day"
+                })
+
+               const {name,email} = result[0]
                
-                return res.status(200).json(result); 
+                return res.status(200).json({name,email,token}); 
             }else{
                 return res.status(400).json({error:{messsage:"erro ao autenticar"}});
             }
@@ -36,6 +47,14 @@
         })
 
 
+    }
+
+    module.exports.validateToken = function(application, req,res){
+        const token = req.body.token || ''
+
+        jwt.verify(token,env.authSecret,function(err, decoded){
+            return res.status(200).send({valid: !err})
+        })
     }
 
     module.exports.authDestroy = function(application, req,res){

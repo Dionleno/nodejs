@@ -2,6 +2,7 @@
 var objectId = require('mongodb').ObjectId;
 var crypto = require('crypto');
 
+
 function Auth(app){
     this._connection = app.config.mongodb();
 

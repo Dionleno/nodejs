@@ -4,7 +4,7 @@ var consign = require('consign');
 var bodyParser = require('body-parser');
 var expressValidator = require('express-validator')();
 var expressSession = require('express-session');
-
+var allowCors = require('./cors');
 var app = express();
  
 //setar o engine of view
@@ -15,6 +15,7 @@ app.set('views','./app/views');
 //permitir codificação url
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(expressValidator);
+app.use(allowCors)
 
 app.use(expressSession({
     secret:'xpto', //chave de segurança

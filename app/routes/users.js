@@ -1,63 +1,90 @@
- //exportar recebendo um paramentro no require
+const express = require('express');
+const auth = require('../../config/auth')
+
+//exportar recebendo um paramentro no require
 
  module.exports = function(application){
 
+
+    var routerNoAuth = express.Router();
     /**
      * Homepage
      */
-    application.get('/',function(req,res){
+    routerNoAuth.get('/',function(req,res){
+        console.log('teste');
+        
         application.app.controllers.users.index(application,req,res)
     });
    
-    /**
+    /** eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1YThmMGI4NWZiNmM2NjIyODA3MGQ5ZTMiLCJuYW1lIjoiZGlvbmxlbm8gdmlkYWxldHRpIiwiZW1haWwiOiJqaG9uc3BfbGVub0Bob3RtYWlsLmNvbSIsInBhc3N3b3JkIjoiMzhhNzM0ZDVjOTlhYTk1NjUxMjU0MTE0NDU2NjkzZjUiLCJpYXQiOjE1MTkzMjQxODMsImV4cCI6MTUxOTQxMDU4M30.XP4_I5RMfCRZexBZW1Zvr3Pg-UqlNud-K26X7FcflPI
      * authenticate login
      */
-    application.post('/auth',function(req,res){
+    routerNoAuth.post('/auth',function(req,res){
         application.app.controllers.auth.authenticate(application,req,res)
     });
 
     /**
+     * Cadastrar novos usuarios
+    */
+    routerNoAuth.post('/cadastrar',function(req,res){
+        application.app.controllers.users.store(application,req,res)
+    });
+    
+    application.use('/', routerNoAuth)
+
+
+
+
+
+
+    var routerAuth = express.Router();
+    application.use('/api', routerAuth);
+    routerAuth.use(auth);
+    
+    /**
      * authenticate logout
      */
-    application.post('/logout',function(req,res){
+    routerAuth.post('/logout',function(req,res){
         application.app.controllers.auth.authDestroy(application,req,res)
     });
 
 
-    /**
-     * Cadastrar novos usuarios
-    */
-    application.post('/cadastrar',function(req,res){
-        application.app.controllers.users.store(application,req,res)
-    });
+   
 
     /**
      * Editar usuarios
     */
-    application.put('/user',function(req,res){
+    routerAuth.put('/user',function(req,res){
        return application.app.controllers.users.edit(application,req,res)
     });
     
     /**
      * Listar usuarios por ID
     */
-    application.get('/user',function(req,res){
+    routerAuth.get('/user',function(req,res){
+        
         application.app.controllers.users.showById(application,req,res)
     });
 
     /**
      * Listar todos os usuarios
      */
-    application.get('/listar',function(req,res){
+    routerAuth.get('/listar',function(req,res){
         application.app.controllers.users.show(application,req,res)
     });
 
     /**
      * deletar usuario
     */
-    application.delete('/user/:id',function(req,res){
+    routerAuth.delete('/user/:id',function(req,res){
         application.app.controllers.users.deleteById(application,req,res)
     });
-  
-
+    routerAuth.get('/',function(req,res){
+        console.log('teste');
+        
+        //application.app.controllers.users.index(application,req,res)
+    });
+    
+   
+   
  };

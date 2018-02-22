@@ -1,3 +1,5 @@
+    const jwt = require('jsonwebtoken');
+    
     module.exports.index = function(application, req,res){
         res.render('secao/cadastrar',{validacao: {}})
     }
