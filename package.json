@@ -4,6 +4,7 @@
   "description": "site de noticias",
   "main": "index.js",
   "scripts": {
+    "start": "node app",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Dionleno vidaletti",
