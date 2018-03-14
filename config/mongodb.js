@@ -11,7 +11,7 @@ var connMongoDb = function(){
     var db = new mongo.Db(
            'finance',
             new mongo.Server(
-                'localhost', //host
+                'mongo_finance', //host
                 '27017', //port
                 {} //config server
             ),

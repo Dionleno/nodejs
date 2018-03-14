@@ -11,8 +11,7 @@ const auth = require('../../config/auth')
      * Homepage
      */
     routerNoAuth.get('/',function(req,res){
-        console.log('teste');
-        
+       
         application.app.controllers.users.index(application,req,res)
     });
    
