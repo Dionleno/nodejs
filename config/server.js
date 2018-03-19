@@ -14,6 +14,8 @@ app.set('views','./app/views');
 
 //permitir codificação url
 app.use(bodyParser.urlencoded({extended: true}));
+// parse application/json
+//app.use(bodyParser.json());
 app.use(expressValidator);
 app.use(allowCors)
 
