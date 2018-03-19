@@ -11,13 +11,13 @@ var connMongoDb = function(){
     var db = new mongo.Db(
            'finance',
             new mongo.Server(
-                'mongo_finance', //host:27017
-                '27017', //port
+                'naboo.mongodb.umbler.com', //host:27017
+                '48580', //port
                 {} //config server
             ),
             {}
     );
-   
+    
   
     return db;
 }
